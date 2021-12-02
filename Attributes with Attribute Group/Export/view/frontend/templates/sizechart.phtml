@@ -1,0 +1,63 @@
+<h1>CUSTOMER LOVE You </h1>
+<?php 
+$_product = $block->getProduct(); 
+echo "SKY".$_product->getSku();
+echo '<hr>';
+echo "Name faoor".$block->getMyname();
+
+?>
+<?php
+
+$_product=$block->getLoadProduct();
+$groupid=$block->getAttributeGroupId($_product->getAttributeSetId());
+$attributesgroups=$block->getAttributeGroups($_product->getAttributeSetId());
+
+$productAttributes=$_product->getAttributes();
+
+
+
+
+?>
+ 
+<?php
+foreach ($attributesgroups as $attributesgroup):
+
+
+ $attributes=$block->getGroupAttributes($_product,$attributesgroup->getAttributeGroupId(),$productAttributes);
+ 
+
+ 
+ 
+ if($attributes){ ?>
+
+ 
+
+   
+            <h3 class="col label" scope="row"><?php echo $attributesgroup->getAttributeGroupName() ?></h3>
+           
+           
+            <div class="additional-attributes-wrapper table-wrapper block">
+        <table class="data table additional-attributes" id="product-attribute-specs-table">
+            <tbody>
+           
+    <?php
+    foreach ($attributes as $attribute): ?>
+       
+       
+       
+             <tr>
+                    <td class="col label" scope="row"><?php echo $attribute->getFrontendLabel() ?></td>
+                    <td class="col data feature" data-th="<?php echo $attribute->getFrontendLabel() ?>"><?php /* @escapeNotVerified */ echo $attribute->getFrontend()->getValue($_product) ?></td>
+                </tr>
+           
+           
+       
+        <?php    
+    endforeach; ?>
+           </tbody>
+        </table>
+        </div>
+ <?php }
+endforeach;
+
+?>
